@@ -6,7 +6,7 @@ import os
 
 
 ### CAMINHO DO ARQUIVO A SER IMPORTADO
-caminho_arquivo="Microdados RS\RS\Amostra_Pessoas_43_SAMPLE.txt"
+caminho_arquivo="Microdados\Amostra_Pessoas_43_SAMPLE.txt"
 
 ### GRAVAR HORA INICIO
 start = time.time()
@@ -65,9 +65,9 @@ df = pd.merge(df, UFs, on='idUF')
 df.to_csv('Output.csv')
 
 ### IMPORTAR EXCEL COM DESCRICAO DOS MUNICIPIOS
-xls_file = pd.ExcelFile('Documentacao\Municipios.xls')
-Municipios = xls_file.parse('Município')
-#print(Municipios.head())
+xls_file = pd.ExcelFile('Suporte\Cidades.xlsx')
+Municipios = xls_file.parse('Cidades')
+print(Municipios.head())
 
 ### CRIAR UM NOVO DATAFRAME MunicipiosRS[] CONTENDO SOMENTE OS MUNICIPIOS DO RS
 #MunicipiosRS = Municipios.loc[Municipios['UF'] == 43]
@@ -78,7 +78,7 @@ Municipios = xls_file.parse('Município')
 ### AGREGAR INFORMACOES DE NOME DO MUNICIPIO NO DATAFRAME df[]
 df["Município"] = df["idUF"] + df["Mun"]
 df["Município"] = df["Município"].astype(str)
-Municipios["Município"] = Municipios["Município"].astype(str)
+Municipios["Município"] = Municipios["Codigo"].astype(str)
 df = pd.merge(df, Municipios, on='Município')
 print(df.head())
 ### IMPRIMIR TEMPO DECORRIDO
